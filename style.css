@@ -377,8 +377,23 @@ body {
 
 /* プロジェクト */
 .projects {
-    padding: 6rem 0;
+    padding: 80px 0;
     background: #f8f9fa;
+}
+
+.projects-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.projects-intro p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
 }
 
 /* 業務例 */
@@ -946,7 +961,7 @@ body {
 
 /* フッター */
 .footer {
-    background: #2c3e50;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     padding: 3rem 0 1rem;
 }
