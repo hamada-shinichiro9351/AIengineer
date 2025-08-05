@@ -167,14 +167,14 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(45deg, #ffd89b 0%, #19547b 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    box-shadow: 0 4px 15px rgba(255, 216, 155, 0.4);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 216, 155, 0.6);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 }
 
 .btn-secondary {
@@ -271,7 +271,7 @@ body {
 
 /* 私について */
 .about {
-    padding: 6rem 0;
+    padding: 4rem 0;
     background: #f8f9fa;
 }
 
@@ -322,7 +322,7 @@ body {
 
 /* スキル */
 .skills {
-    padding: 6rem 0;
+    padding: 4rem 0;
     background: white;
 }
 
@@ -377,7 +377,7 @@ body {
 
 /* プロジェクト */
 .projects {
-    padding: 80px 0;
+    padding: 4rem 0;
     background: #f8f9fa;
 }
 
@@ -398,7 +398,7 @@ body {
 
 /* 業務例 */
 .services {
-    padding: 6rem 0;
+    padding: 4rem 0;
     background: white;
 }
 
@@ -897,7 +897,7 @@ body {
 
 /* 要件構成ジェネレーター */
 .generator {
-    padding: 6rem 0;
+    padding: 4rem 0;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
@@ -1028,7 +1028,7 @@ body {
 
 /* お問い合わせ */
 .contact {
-    padding: 6rem 0;
+    padding: 4rem 0;
     background: white;
 }
 
@@ -1297,7 +1297,7 @@ html {
 
 /* 導入の流れセクション */
 .process {
-    padding: 80px 0;
+    padding: 4rem 0;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
@@ -1418,7 +1418,7 @@ html {
 
 /* "頼んでよかった"セクション */
 .satisfaction {
-    padding: 60px 0;
+    padding: 4rem 0;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
 }
