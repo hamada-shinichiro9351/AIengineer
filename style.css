@@ -895,6 +895,137 @@ body {
     font-weight: 500;
 }
 
+/* 要件構成ジェネレーター */
+.generator {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.generator-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.generator-description {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.generator-description p {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.generator-iframe {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 3rem;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.generator-iframe iframe {
+    width: 100%;
+    height: 700px;
+    border: none;
+    display: block;
+}
+
+.generator-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.generator-tech h4,
+.generator-features h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.generator-tech p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+.generator-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.generator-features li {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.2rem;
+}
+
+.generator-features li::before {
+    content: '•';
+    color: #667eea;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+.generator-tags {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.generator-tags span {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .generator-details {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .generator-iframe iframe {
+        height: 600px;
+    }
+    
+    .generator-description p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .generator-iframe iframe {
+        height: 500px;
+    }
+    
+    .generator-tags {
+        gap: 0.5rem;
+    }
+    
+    .generator-tags span {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.8rem;
+    }
+}
+
 /* お問い合わせ */
 .contact {
     padding: 6rem 0;
