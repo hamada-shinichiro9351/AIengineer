@@ -99,19 +99,7 @@ window.addEventListener('scroll', () => {
     animateSkillBars();
 });
 
-// iframeへのスクロール機能
-function scrollToIframe() {
-    const iframeElement = document.querySelector('.project-iframe iframe');
-    if (iframeElement) {
-        const headerHeight = header.offsetHeight;
-        const iframePosition = iframeElement.offsetTop - headerHeight;
-        
-        window.scrollTo({
-            top: iframePosition,
-            behavior: 'smooth'
-        });
-    }
-}
+
 
 // お問い合わせフォームの処理
 if (contactForm) {
