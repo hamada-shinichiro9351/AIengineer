@@ -1604,3 +1604,137 @@ html {
         font-size: 1rem;
     }
 } 
+
+/* ======================================================= */
+/* ★★★ 新機能：業務改善インパクト診断 ★★★ */
+/* ======================================================= */
+.simulator {
+    padding: 3rem 0;
+    background: #f8f9fa; /* 他のセクションと合わせる */
+    scroll-margin-top: 80px; /* ヘッダーの高さを考慮 */
+}
+
+.simulator-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+    color: #666;
+    line-height: 1.8;
+}
+
+.simulator-body {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* 子要素のアニメーションのため */
+}
+
+.impact-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.impact-form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.impact-form label {
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: #333;
+}
+
+.impact-form input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+}
+
+.impact-form input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.impact-form button {
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1.1rem;
+}
+
+.simulator-result {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e9ecef;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.simulator-result.visible {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 500px; /* 十分な高さを確保 */
+    transition: opacity 0.8s ease, transform 0.8s ease, max-height 1s ease-in-out;
+}
+
+.result-lead-text {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.result-time {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.result-time span {
+    font-size: 1.5rem;
+    color: #667eea; /* グラデーションを解除して色を付ける */
+   -webkit-text-fill-color: initial;
+}
+
+.result-sub-text {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+.result-note {
+    font-size: 0.8rem;
+    color: #999;
+    margin-bottom: 2.5rem;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .impact-form .form-row {
+        grid-template-columns: 1fr;
+    }
+    .result-time {
+        font-size: 2.5rem;
+    }
+    .result-time span {
+        font-size: 1.2rem;
+    }
+}
