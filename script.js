@@ -27,10 +27,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             });
             
             // モバイルメニューを閉じる
-            if (hamburger.classList.contains('active')) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            }
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
         }
     });
 });
@@ -52,9 +50,10 @@ const animateSkillBars = () => {
         const barTop = bar.getBoundingClientRect().top;
         const windowHeight = window.innerHeight;
         
-        if (barTop < windowHeight - 100 && bar.style.width === '0%') {
-             const targetWidth = bar.parentElement.parentElement.querySelector('.skill-fill').getAttribute('style').match(/width:\s*([\d.]+)%/)[1];
-             bar.style.width = targetWidth + '%';
+        if (barTop < windowHeight - 100) {
+            bar.style.width = bar.style.width || '0%';
+            const targetWidth = bar.getAttribute('style').match(/width:\s*(\d+)%/)[1];
+            bar.style.width = targetWidth + '%';
         }
     });
 };
@@ -72,7 +71,7 @@ const animateOnScroll = () => {
     });
 };
 
-// ページ読み込み時の初期化処理
+// 初期化時にアニメーションを設定
 document.addEventListener('DOMContentLoaded', () => {
     // セクションの初期状態を設定
     sections.forEach(section => {
@@ -91,99 +90,74 @@ document.addEventListener('DOMContentLoaded', () => {
     // スキルバーの初期状態を設定
     skillBars.forEach(bar => {
         bar.style.width = '0%';
-        bar.style.transition = 'width 1.5s cubic-bezier(0.25, 1, 0.5, 1)';
     });
+});
 
-    // ギャラリーの自動再生を開始
-    startGalleryAutoPlay();
-
-    // ページロード時に初回のアニメーションチェックを実行
+// スクロールイベントリスナー
+window.addEventListener('scroll', () => {
     animateOnScroll();
     animateSkillBars();
 });
 
 
-// ===================================================================
-// ★★★ 改善点：お問い合わせフォームの処理 ★★★
-// ===================================================================
+
+// お問い合わせフォームの処理
 if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => { // asyncを追加
+    contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        const submitButton = contactForm.querySelector('button[type="submit"]');
-        const originalButtonText = submitButton.textContent;
-
         // フォームデータの取得
         const name = contactForm.querySelector('input[name="name"]').value;
         const email = contactForm.querySelector('input[name="email"]').value;
         const message = contactForm.querySelector('textarea[name="message"]').value;
         
-        // バリデーション
+        // 簡単なバリデーション
         if (!name || !email || !message) {
             showNotification('すべての項目を入力してください。', 'error');
             return;
         }
+        
         if (!isValidEmail(email)) {
             showNotification('有効なメールアドレスを入力してください。', 'error');
             return;
         }
-
-        // あなたのGASウェブアプリURL
-        const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbwQaL0tPwkrJfCEbsblMfq3v8mHEBTTv_HNqsk2kcA15TMA-rKL3F3aULK43XpB1mNq0A/exec';
-
-        // 送信中の表示に変更
-        submitButton.disabled = true;
-        submitButton.textContent = '送信中...';
-
-        try {
-            // fetch APIを使ってGASにデータを送信
-            await fetch(GAS_API_URL, {
-                method: 'POST',
-                // mode: 'no-cors' はGAS側で適切にレスポンスを返せば不要になる場合があります。
-                // 今回はGAS側でJSONを返すので、CORSを有効にするのが正式な方法ですが、
-                // ひとまずこのまま進めます。
-                // エラーが出る場合は 'no-cors' を有効にしてみてください。
-                body: JSON.stringify({ name, email, message }),
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8', // GAS側でJSON.parseするため
-                },
-            });
-
-            // 成功時の処理
-            showNotification('お問い合わせありがとうございます。内容を確認の上、ご連絡いたします。', 'success');
-            contactForm.reset();
-
-        } catch (error) {
-            // エラー時の処理
-            console.error('送信に失敗しました:', error);
-            showNotification('送信に失敗しました。時間をおいて再度お試しください。', 'error');
-        } finally {
-            // ボタンの表示を元に戻す
-            submitButton.disabled = false;
-            submitButton.textContent = originalButtonText;
-        }
+        
+        // メールクライアントを開く
+        const subject = 'お問い合わせ - 濱田慎一郎ポートフォリオサイト';
+        const body = `お名前: ${name}\nメールアドレス: ${email}\n\nメッセージ:\n${message}`;
+        const mailtoUrl = `mailto:hamada.shinichiro9351@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        // メールクライアントを開く
+        window.open(mailtoUrl, '_blank');
+        
+        // 成功メッセージを表示
+        showNotification('メールクライアントが開きました。内容を確認して送信してください。', 'success');
+        
+        // フォームをリセット
+        contactForm.reset();
     });
 }
 
-// メールアドレスのバリデーション関数
+// メールアドレスのバリデーション
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
-// ===================================================================
-
 
 // 通知表示機能
 function showNotification(message, type = 'info') {
+    // 既存の通知を削除
     const existingNotification = document.querySelector('.notification');
     if (existingNotification) {
         existingNotification.remove();
     }
     
+    // 新しい通知を作成
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
     
+    // スタイルを適用
     notification.style.cssText = `
         position: fixed;
         top: 100px;
@@ -191,54 +165,69 @@ function showNotification(message, type = 'info') {
         padding: 1rem 2rem;
         border-radius: 10px;
         color: white;
-        background: ${type === 'success' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#e74c3c'};
         font-weight: 600;
         z-index: 10000;
-        transform: translateX(120%);
-        transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
         max-width: 300px;
         word-wrap: break-word;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
     `;
     
+    // タイプに応じた背景色を設定
+    if (type === 'success') {
+        notification.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+    } else if (type === 'error') {
+        notification.style.background = '#e74c3c';
+    } else {
+        notification.style.background = '#3498db';
+    }
+    
+    // 通知を表示
     document.body.appendChild(notification);
     
+    // アニメーション
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 100);
     
+    // 自動で削除
     setTimeout(() => {
-        notification.style.transform = 'translateX(120%)';
-        notification.addEventListener('transitionend', () => notification.remove());
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 300);
     }, 5000);
 }
+
+// プロジェクトカードのホバーエフェクト
+document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-10px) scale(1.02)';
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) scale(1)';
+    });
+});
 
 // 統計数字のカウントアップアニメーション
 function animateCounters() {
     const counters = document.querySelectorAll('.stat-item h3');
     
     counters.forEach(counter => {
-        // すでにアニメーションが実行されたかチェック
-        if (counter.dataset.animated) return;
-
-        counter.dataset.animated = true; // アニメーション実行済みの印を付ける
-        const targetText = counter.textContent;
-        const target = parseInt(targetText, 10);
-        const suffix = targetText.includes('+') ? '+' : '';
-        
+        const target = parseInt(counter.textContent);
+        const increment = target / 100;
         let current = 0;
-        const duration = 2000; // 2秒
-        const stepTime = 16; // 約60fps
-        const totalSteps = duration / stepTime;
-        const increment = target / totalSteps;
         
         const updateCounter = () => {
-            current += increment;
             if (current < target) {
-                counter.textContent = Math.ceil(current) + suffix;
+                current += increment;
+                counter.textContent = Math.ceil(current) + (counter.textContent.includes('+') ? '+' : '');
                 requestAnimationFrame(updateCounter);
             } else {
-                counter.textContent = target + suffix;
+                counter.textContent = target + (counter.textContent.includes('+') ? '+' : '');
             }
         };
         
@@ -246,24 +235,25 @@ function animateCounters() {
     });
 }
 
-// IntersectionObserverで要素が表示されたらアニメーションを実行
-const observer = new IntersectionObserver((entries, observer) => {
+// 統計セクションが表示されたときにカウントアップを開始
+const observerOptions = {
+    threshold: 0.5,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            if (entry.target.classList.contains('about')) {
-                animateCounters();
-            }
-            // 一度表示されたら監視を停止
+            animateCounters();
             observer.unobserve(entry.target);
         }
     });
-}, { threshold: 0.5 });
+}, observerOptions);
 
 const aboutSection = document.querySelector('.about');
 if (aboutSection) {
     observer.observe(aboutSection);
 }
-
 
 // パフォーマンス最適化のためのスロットリング
 function throttle(func, limit) {
@@ -280,28 +270,58 @@ function throttle(func, limit) {
 }
 
 // スクロールイベントをスロットリング
-const throttledScrollHandler = throttle(() => {
+window.addEventListener('scroll', throttle(() => {
     animateOnScroll();
     animateSkillBars();
-}, 100); // 100msに1回実行
-window.addEventListener('scroll', throttledScrollHandler);
+}, 16)); // 約60fps
 
+// ページ読み込み完了時の処理
+window.addEventListener('load', () => {
+    // ローディングアニメーション（必要に応じて）
+    document.body.style.opacity = '1';
+    
+    // 初期アニメーション
+    setTimeout(() => {
+        animateOnScroll();
+    }, 100);
+});
 
 // キーボードナビゲーション対応
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        // モーダルが開いていれば閉じる
-        if (modalOverlay.style.display === 'block') {
-            closeModal();
-        }
-        // ハンバーガーメニューが開いていれば閉じる
-        if (hamburger.classList.contains('active')) {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-        }
+        // モバイルメニューを閉じる
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
     }
 });
 
+// タッチデバイス対応
+let touchStartY = 0;
+let touchEndY = 0;
+
+document.addEventListener('touchstart', (e) => {
+    touchStartY = e.changedTouches[0].screenY;
+});
+
+document.addEventListener('touchend', (e) => {
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartY - touchEndY;
+    
+    if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+            // 上スワイプ
+            console.log('上スワイプ');
+        } else {
+            // 下スワイプ
+            console.log('下スワイプ');
+        }
+    }
+}
 
 // モーダル機能
 const modalOverlay = document.getElementById('modal-overlay');
@@ -309,226 +329,175 @@ const modalImage = document.getElementById('modal-image');
 const modalVideo = document.getElementById('modal-video');
 const modalClose = document.querySelector('.modal-close');
 
-let modalMediaItems = [];
+// モーダルナビゲーション用の変数
+let modalImages = [];
 let currentModalIndex = 0;
 
-function openModal(src, alt, type, element) {
-    const projectCard = element.closest('.project-card');
-
+// モーダルを開く関数
+function openModal(src, alt, type) {
     if (type === 'image') {
+        // 同じプロジェクト内の画像を収集
+        const clickedImage = event.target;
+        const projectCard = clickedImage.closest('.project-card');
         const projectImages = projectCard.querySelectorAll('.project-screenshot, .gallery-image');
-        modalMediaItems = Array.from(projectImages).map(img => ({ src: img.src, alt: img.alt, type: 'image' }));
-        currentModalIndex = modalMediaItems.findIndex(item => item.src === src);
-
-        modalImage.src = src;
-        modalImage.alt = alt;
+        
+        modalImages = Array.from(projectImages).map(img => ({
+            src: img.src,
+            alt: img.alt
+        }));
+        
+        // プロジェクト3（議事録ワークフロー）の特別処理
+        const projectTitle = projectCard.querySelector('h3').textContent;
+        if (projectTitle === '議事録ワークフロー') {
+            // プロジェクト3の場合、常にLP_project3_1.pngから開始
+            currentModalIndex = 0;
+            modalImage.src = 'LP_project3_1.png';
+            modalImage.alt = '議事録ワークフロー（入力画面）';
+        } else {
+            // 他のプロジェクトは通常通り
+            currentModalIndex = modalImages.findIndex(img => img.src === src);
+            modalImage.src = src;
+            modalImage.alt = alt;
+        }
+        
+        // ナビゲーション矢印の表示/非表示を制御
+        updateModalNavigation();
+        
         modalImage.style.display = 'block';
         modalVideo.style.display = 'none';
-
     } else if (type === 'video') {
-        const projectVideo = projectCard.querySelector('.project-video-file');
-        modalMediaItems = [{ src: projectVideo.src, alt: 'デモ動画', type: 'video' }];
+        modalImages = []; // 動画の場合はナビゲーションを無効化
         currentModalIndex = 0;
-
-        modalVideo.src = projectVideo.src;
+        updateModalNavigation();
+        
+        modalVideo.src = src;
         modalVideo.style.display = 'block';
         modalImage.style.display = 'none';
-        modalVideo.play();
     }
     
     modalOverlay.style.display = 'block';
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'; // スクロールを無効化
+}
+
+// モーダルを閉じる関数
+function closeModal() {
+    modalOverlay.style.display = 'none';
+    modalImage.style.display = 'none';
+    modalVideo.style.display = 'none';
+    document.body.style.overflow = ''; // スクロールを有効化
+    
+    // 動画を停止
+    if (modalVideo.src) {
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+    }
+}
+
+// モーダルを閉じるイベントリスナー
+if (modalClose) {
+    modalClose.addEventListener('click', closeModal);
+}
+
+if (modalOverlay) {
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            closeModal();
+        }
+    });
+}
+
+// キーボードナビゲーション
+document.addEventListener('keydown', (e) => {
+    if (modalOverlay.style.display === 'block') {
+        if (e.key === 'Escape') {
+            closeModal();
+        } else if (e.key === 'ArrowLeft') {
+            navigateModal(-1);
+        } else if (e.key === 'ArrowRight') {
+            navigateModal(1);
+        }
+    }
+});
+
+// モーダルナビゲーション関数
+function navigateModal(direction) {
+    if (modalImages.length <= 1) return;
+    
+    currentModalIndex = (currentModalIndex + direction + modalImages.length) % modalImages.length;
+    
+    const currentImage = modalImages[currentModalIndex];
+    modalImage.src = currentImage.src;
+    modalImage.alt = currentImage.alt;
+    
     updateModalNavigation();
 }
 
-function closeModal() {
-    modalOverlay.style.display = 'none';
-    document.body.style.overflow = '';
-    modalVideo.pause();
-    modalVideo.currentTime = 0;
-}
-
-if (modalClose) modalClose.addEventListener('click', closeModal);
-if (modalOverlay) modalOverlay.addEventListener('click', (e) => e.target === modalOverlay && closeModal());
-
-document.addEventListener('keydown', (e) => {
-    if (modalOverlay.style.display !== 'block') return;
-    if (e.key === 'ArrowLeft') navigateModal(-1);
-    if (e.key === 'ArrowRight') navigateModal(1);
-});
-
-function navigateModal(direction) {
-    if (modalMediaItems.length <= 1) return;
-    
-    currentModalIndex = (currentModalIndex + direction + modalMediaItems.length) % modalMediaItems.length;
-    
-    const currentItem = modalMediaItems[currentModalIndex];
-    
-    if(currentItem.type === 'image') {
-        modalImage.src = currentItem.src;
-        modalImage.alt = currentItem.alt;
-        modalImage.style.display = 'block';
-        modalVideo.style.display = 'none';
-        modalVideo.pause();
-    } else {
-        // 現状は画像のみのギャラリーを想定
-    }
-}
-
+// ナビゲーション矢印の表示/非表示を制御
 function updateModalNavigation() {
     const prevButton = document.querySelector('.modal-prev');
     const nextButton = document.querySelector('.modal-next');
-    const display = modalMediaItems.length > 1 ? 'flex' : 'none';
-    if(prevButton) prevButton.style.display = display;
-    if(nextButton) nextButton.style.display = display;
+    
+    if (modalImages.length <= 1) {
+        // 画像が1枚以下の場合は矢印を非表示
+        if (prevButton) prevButton.style.display = 'none';
+        if (nextButton) nextButton.style.display = 'none';
+    } else {
+        // プロジェクト3（議事録ワークフロー）の特別処理
+        const currentImageSrc = modalImage.src;
+        if (currentImageSrc.includes('LP_project3_1.png')) {
+            // LP_project3_1.pngを表示している場合は右矢印のみ
+            if (prevButton) prevButton.style.display = 'none';
+            if (nextButton) nextButton.style.display = 'flex';
+        } else if (currentImageSrc.includes('LP_project3_2.png')) {
+            // LP_project3_2.pngを表示している場合は左矢印のみ
+            if (prevButton) prevButton.style.display = 'flex';
+            if (nextButton) nextButton.style.display = 'none';
+        } else {
+            // 他のプロジェクトは通常通り両方の矢印を表示
+            if (prevButton) prevButton.style.display = 'flex';
+            if (nextButton) nextButton.style.display = 'flex';
+        }
+    }
 }
-
-// クリックイベントの委譲
-document.body.addEventListener('click', function(e) {
-    const screenshot = e.target.closest('.project-screenshot, .gallery-image');
-    if (screenshot) {
-        openModal(screenshot.src, screenshot.alt, 'image', screenshot);
-        return;
-    }
-
-    const videoElement = e.target.closest('.project-video-file');
-    if (videoElement) {
-        openModal(videoElement.src, videoElement.getAttribute('alt'), 'video', videoElement);
-        return;
-    }
-
-    // デモ動画を見るリンク
-    if (e.target.closest('.demo-link') && e.target.closest('.project-card').querySelector('video')) {
-         e.preventDefault();
-         const card = e.target.closest('.project-card');
-         const videoToPlay = card.querySelector('.project-video-file');
-         openModal(videoToPlay.src, videoToPlay.getAttribute('alt'), 'video', videoToPlay);
-         return;
-    }
-});
-
 
 // ギャラリー画像切り替え機能
+let currentGalleryIndex = 0;
 let galleryInterval;
 
-function changeGalleryImage(gallery, index) {
-    const images = gallery.querySelectorAll('.gallery-image');
-    const dots = gallery.parentElement.querySelectorAll('.gallery-dot');
+function changeGalleryImage(index) {
+    const galleryContainer = document.querySelector('.gallery-container');
+    const images = galleryContainer.querySelectorAll('.gallery-image');
+    const dots = document.querySelectorAll('.gallery-dot');
     
-    const currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+    // すべての画像とドットからactiveクラスを削除
+    images.forEach(img => img.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
     
-    images[currentIndex].classList.remove('active');
-    dots[currentIndex].classList.remove('active');
-    
-    const nextIndex = (currentIndex + 1) % images.length;
-    
-    images[nextIndex].classList.add('active');
-    dots[nextIndex].classList.add('active');
-}
-
-function startGalleryAutoPlay() {
-    const galleries = document.querySelectorAll('.gallery-container');
-    galleries.forEach(gallery => {
-        const images = gallery.querySelectorAll('.gallery-image');
-        if (images.length > 1) {
-            setInterval(() => changeGalleryImage(gallery), 3000);
-        }
-    });
-}
-
-// =======================================================
-// ★★★ 新機能：業務改善インパクト診断ロジック ★★★
-// =======================================================
-const impactForm = document.getElementById('impact-form');
-const resultContainer = document.getElementById('simulator-result');
-
-if (impactForm) {
-    impactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // 入力値の取得
-        const dailyMinutesInput = document.getElementById('daily-minutes');
-        const teamSizeInput = document.getElementById('team-size');
-
-        const dailyMinutes = parseFloat(dailyMinutesInput.value);
-        const teamSize = parseFloat(teamSizeInput.value);
-
-        // バリデーション
-        if (isNaN(dailyMinutes) || isNaN(teamSize) || dailyMinutes <= 0 || teamSize <= 0) {
-            showNotification('1以上の有効な数値を入力してください。', 'error');
-            return;
-        }
-
-        // --- ここが計算のロジック ---
-        const IMPROVEMENT_RATE = 0.8; // AI導入による削減率を80%と仮定（この数字は調整可能）
-        const WORKING_DAYS_PER_MONTH = 20; // 月の営業日数を20日と仮定
-
-        // 1. チーム全体の月間総業務時間（分単位）
-        const totalMonthlyMinutes = dailyMinutes * teamSize * WORKING_DAYS_PER_MONTH;
-        
-        // 2. 削減できる月間時間（時間単位）
-        const savedMonthlyHours = (totalMonthlyMinutes * IMPROVEMENT_RATE) / 60;
-        
-        // 結果を表示
-        displayResult(savedMonthlyHours);
-    });
-}
-
-function displayResult(hours) {
-    // 結果表示エリアをクリアして非表示にリセット
-    resultContainer.innerHTML = '';
-    resultContainer.classList.remove('visible');
-    
-    // アニメーションのために少し待つ
-    setTimeout(() => {
-        const roundedHours = Math.round(hours);
-        
-        // 表示するHTMLを生成
-        const resultHTML = `
-            <p class="result-lead-text">あなたのチームでは...</p>
-            <div class="result-time" data-target="${roundedHours}">0 <span>時間/月</span></div>
-            <p class="result-sub-text">の「創造的な時間」が生まれる可能性があります。</p>
-            <p class="result-note">※一般的なAI導入による業務削減率を80%と仮定した参考値です。<br>この時間を、新しい企画や顧客満足度の向上に活用しませんか？</p>
-            <a href="#contact" class="btn btn-secondary">具体的な方法を相談する</a>
-        `;
-        
-        resultContainer.innerHTML = resultHTML;
-        resultContainer.classList.add('visible');
-
-        // カウントアップアニメーションを実行
-        const timeElement = resultContainer.querySelector('.result-time');
-        animateSingleCounter(timeElement);
-
-        // 結果までスムーズにスクロール
-        timeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 100); // 100ミリ秒待つ
-}
-
-// 診断ツール用の単一カウンターアニメーション関数
-function animateSingleCounter(element) {
-    const target = parseInt(element.dataset.target, 10);
-    if (isNaN(target)) return;
-
-    let current = 0;
-    const duration = 1500; // 1.5秒
-    const stepTime = 16;
-    const totalSteps = duration / stepTime;
-    let increment = target / totalSteps;
-
-    // ターゲットが小さい場合、incrementが1未満にならないように調整
-    if (target > 0 && increment < 1) {
-        increment = 1;
+    // 指定されたインデックスの画像とドットにactiveクラスを追加
+    if (images[index]) {
+        images[index].classList.add('active');
+        currentGalleryIndex = index;
     }
-
-    const updateCounter = () => {
-        current += increment;
-        if (current < target) {
-            element.innerHTML = `${Math.ceil(current)} <span>時間/月</span>`;
-            requestAnimationFrame(updateCounter);
-        } else {
-            element.innerHTML = `${target} <span>時間/月</span>`;
-        }
-    };
-    
-    updateCounter();
+    if (dots[index]) {
+        dots[index].classList.add('active');
+    }
 }
+
+// 自動ギャラリー切り替え
+function startGalleryAutoPlay() {
+    const galleryContainer = document.querySelector('.gallery-container');
+    if (!galleryContainer) return;
+    
+    const images = galleryContainer.querySelectorAll('.gallery-image');
+    if (images.length <= 1) return;
+    
+    galleryInterval = setInterval(() => {
+        currentGalleryIndex = (currentGalleryIndex + 1) % images.length;
+        changeGalleryImage(currentGalleryIndex);
+    }, 3000); // 3秒ごとに切り替え
+}
+
+// ページ読み込み時にギャラリー自動再生を開始
+document.addEventListener('DOMContentLoaded', () => {
+    startGalleryAutoPlay();
+}); 
