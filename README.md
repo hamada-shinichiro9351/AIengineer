@@ -46,13 +46,14 @@ LP/
 ├── style.css           # スタイルシート
 ├── script.js           # JavaScript機能
 ├── README.md           # このファイル
-├── profile.jpg         # プロフィール画像
+├── profile.png         # プロフィール画像
 ├── LP_project1.png     # プロジェクト画像1
 ├── LP_project2.png     # プロジェクト画像2
 ├── LP_project3_1.png   # プロジェクト画像3-1
 ├── LP_project3_2.png   # プロジェクト画像3-2
 ├── LP_project4.mp4     # プロジェクト動画
-└── LP_project5.png     # プロジェクト画像5
+├── LP_project5.png     # プロジェクト画像5
+└── todo-app.png        # Todo管理アプリ画像
 ```
 
 ## 提供サービス
@@ -68,7 +69,7 @@ LP/
 
 ### 技術スキル
 - **AI・業務自動化**: Dify, LINE Messaging API, OpenAI API, GAS, ChatGPT・Claude活用, スプレッドシート・Excel自動化, Midjourney
-- **システム開発**: HTML/CSS/JavaScript, LLM活用, AI-OCR, 業務設計・プロンプト設計, Cursor活用
+- **システム開発**: HTML/CSS/JavaScript, React, LLM活用, AI-OCR, 業務設計・プロンプト設計, Cursor活用
 
 ## プロジェクト実績
 
@@ -77,6 +78,13 @@ LP/
 3. **議事録ワークフロー** - 音声メモから自動で議事録を整形するAIワークフロー
 4. **領収書自動管理ツール** - PDF/紙から情報抽出・分類する自動化ツール
 5. **URL 1行要約サービス** - URLを入力するとAIが1行で要約するWebサービス
+6. **Todo管理アプリ** - やる気がみなぎるオレンジ系デザインのタスク管理アプリ
+
+## 統計情報
+
+- **AIプロジェクト**: 6+ プロジェクト
+- **技術分野**: 5+ 分野
+- **実用性重視**: 100%
 
 ## 連絡先
 
@@ -90,7 +98,10 @@ LP/
 - チャットボット機能の追加
 - レスポンシブデザインの実装
 - プロジェクト実績の追加
+- 2025年: Todo管理アプリプロジェクトの追加
+- プロジェクト数を6つに更新
+- 技術分野の拡充
 
 ## ライセンス
 
-© 2024 Hamada Shinichiro. All rights reserved. 
+© 2025 Hamada Shinichiro. All rights reserved. 
