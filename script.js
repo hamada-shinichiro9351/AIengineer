@@ -501,3 +501,111 @@ function startGalleryAutoPlay() {
 document.addEventListener('DOMContentLoaded', () => {
     startGalleryAutoPlay();
 }); 
+
+
+// =======================================================
+// ★★★ 新機能：業務改善インパクト診断ロジック ★★★
+// =======================================================
+const impactForm = document.getElementById('impact-form');
+const resultContainer = document.getElementById('simulator-result');
+
+if (impactForm) {
+    impactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // 入力値の取得
+        const dailyMinutesInput = document.getElementById('daily-minutes');
+        const teamSizeInput = document.getElementById('team-size');
+
+        const dailyMinutes = parseFloat(dailyMinutesInput.value);
+        const teamSize = parseFloat(teamSizeInput.value);
+
+        // バリデーション
+        if (isNaN(dailyMinutes) || isNaN(teamSize) || dailyMinutes <= 0 || teamSize <= 0) {
+            showNotification('1以上の有効な数値を入力してください。', 'error');
+            return;
+        }
+
+        // --- ここが計算のロジック ---
+        const IMPROVEMENT_RATE = 0.8; // AI導入による削減率を80%と仮定（この数字は調整可能）
+        const WORKING_DAYS_PER_MONTH = 20; // 月の営業日数を20日と仮定
+
+        // 1. チーム全体の月間総業務時間（分単位）
+        const totalMonthlyMinutes = dailyMinutes * teamSize * WORKING_DAYS_PER_MONTH;
+        
+        // 2. 削減できる月間時間（時間単位）
+        const savedMonthlyHours = (totalMonthlyMinutes * IMPROVEMENT_RATE) / 60;
+        
+        // 結果を表示
+        displayResult(savedMonthlyHours);
+    });
+}
+
+function displayResult(hours) {
+    // 結果表示エリアをクリアして非表示にリセット
+    resultContainer.innerHTML = '';
+    resultContainer.classList.remove('visible');
+    
+    // 相談ボタンを非表示にする
+    const consultationButton = document.querySelector('.simulator-consultation');
+    if (consultationButton) {
+        consultationButton.style.display = 'none';
+    }
+    
+    // アニメーションのために少し待つ
+    setTimeout(() => {
+        const roundedHours = Math.round(hours);
+        
+        // 表示するHTMLを生成
+        const resultHTML = `
+            <p class="result-lead-text">あなたのチームでは...</p>
+            <div class="result-time" data-target="${roundedHours}">0 <span>時間/月</span></div>
+            <p class="result-sub-text">の「創造的な時間」が生まれる可能性があります。</p>
+            <p class="result-note">※一般的なAI導入による業務削減率を80%と仮定した参考値です。<br>この時間を、新しい企画や顧客満足度の向上に活用しませんか？</p>
+        `;
+        
+        resultContainer.innerHTML = resultHTML;
+        resultContainer.classList.add('visible');
+
+        // カウントアップアニメーションを実行
+        const timeElement = resultContainer.querySelector('.result-time');
+        animateSingleCounter(timeElement);
+
+        // 結果までスムーズにスクロール
+        timeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // 相談ボタンを表示する
+        if (consultationButton) {
+            consultationButton.style.display = 'block';
+        }
+    }, 100); // 100ミリ秒待つ
+}
+
+// 診断ツール用の単一カウンターアニメーション関数
+function animateSingleCounter(element) {
+    const target = parseInt(element.dataset.target, 10);
+    if (isNaN(target)) return;
+
+    let current = 0;
+    const duration = 1500; // 1.5秒
+    const stepTime = 16;
+    const totalSteps = duration / stepTime;
+    let increment = target / totalSteps;
+
+    // ターゲットが小さい場合、incrementが1未満にならないように調整
+    if (target > 0 && increment < 1) {
+        increment = 1;
+    }
+
+    const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+            element.innerHTML = `${Math.ceil(current)} <span>時間/月</span>`;
+            requestAnimationFrame(updateCounter);
+        } else {
+            element.innerHTML = `${target} <span>時間/月</span>`;
+        }
+    };
+    
+    updateCounter();
+}
