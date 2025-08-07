@@ -19,6 +19,7 @@
                              <li><a href="#home">ホーム</a></li>
                              <li><a href="#about">私について</a></li>
                              <li><a href="#services">対応業務</a></li>
+                             <li><a href="#simulator">業務改善診断</a></li>
                              <li><a href="#projects">制作実績</a></li>
                              <li><a href="#skills">スキル</a></li>
                              <li><a href="#process">導入の流れ</a></li>
@@ -227,6 +228,39 @@
             </div>
         </section>
 
+        <!-- ======================================================= -->
+        <!-- ★★★ 新機能：業務改善インパクト診断 ★★★ -->
+        <!-- ======================================================= -->
+        <section id="simulator" class="simulator">
+            <div class="container">
+                <h2 class="section-title">あなたの「創造的な時間」、取り戻しませんか？</h2>
+                <div class="simulator-intro">
+                    <p>日々の定型業務に費やしている時間を入力するだけで、<br>AI導入によって創出できる「未来の時間」を無料でシミュレーションします。</p>
+                </div>
+                <div class="simulator-body">
+                    <form id="impact-form" class="impact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="daily-minutes">1. 1日あたりの定型業務の時間（分）</label>
+                                <input type="number" id="daily-minutes" placeholder="例：60 (分)">
+                            </div>
+                            <div class="form-group">
+                                <label for="team-size">2. その業務を行う人数</label>
+                                <input type="number" id="team-size" value="1" placeholder="例：3 (人)">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">未来の時間を計算する</button>
+                    </form>
+                    <div id="simulator-result" class="simulator-result">
+                        <!-- 計算結果はここにJavaScriptで挿入されます -->
+                    </div>
+                    <div class="simulator-consultation" style="display: none;">
+                        <a href="#contact" class="btn btn-secondary">具体的な方法を相談する</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- プロジェクト -->
         <section id="projects" class="projects">
             <div class="container">
@@ -253,6 +287,9 @@
                                     <i class="fab fa-line"></i>
                                     <span>LINEで体験する</span>
                                 </a>
+                            </div>
+                            <div class="project-consultation">
+                                <a href="#contact" class="btn btn-secondary">具体的な方法を相談する</a>
                             </div>
                             <div class="project-details">
                                 <div class="project-tech">
@@ -291,6 +328,9 @@
                                     <i class="fas fa-comments"></i>
                                     <span>チャットフローを試す</span>
                                 </a>
+                            </div>
+                            <div class="project-consultation">
+                                <a href="#contact" class="btn btn-secondary">具体的な方法を相談する</a>
                             </div>
                             <div class="project-details">
                                 <div class="project-tech">
@@ -340,6 +380,9 @@
                                     <span>ワークフローを体験</span>
                                 </a>
                             </div>
+                            <div class="project-consultation">
+                                <a href="#contact" class="btn btn-secondary">具体的な方法を相談する</a>
+                            </div>
                             <div class="project-details">
                                 <div class="project-tech">
                                     <h4>使用技術</h4>
@@ -383,6 +426,9 @@
                                     <span>デモ動画を見る</span>
                                 </a>
                             </div>
+                            <div class="project-consultation">
+                                <a href="#contact" class="btn btn-secondary">具体的な方法を相談する</a>
+                            </div>
                             <div class="project-details">
                                 <div class="project-tech">
                                     <h4>使用技術</h4>
@@ -421,6 +467,9 @@
                                     <span>サービスを試す</span>
                                 </a>
                             </div>
+                            <div class="project-consultation">
+                                <a href="#contact" class="btn btn-secondary">具体的な方法を相談する</a>
+                            </div>
                             <div class="project-details">
                                 <div class="project-tech">
                                     <h4>使用技術</h4>
@@ -454,12 +503,15 @@
                                  Todo管理アプリ。<br>
                                  優先度設定・カテゴリ分類・期限管理で<br>
                                  効率的なタスク管理を実現。</p>
-                             <div class="project-demo">
-                                 <a href="https://689384966a62b07c4a0800c5--effervescent-dusk-e4577b.netlify.app/" class="demo-link" target="_blank" rel="noopener">
-                                     <i class="fas fa-tasks"></i>
-                                     <span>アプリを試す</span>
-                                 </a>
-                             </div>
+                                                         <div class="project-demo">
+                                <a href="https://689384966a62b07c4a0800c5--effervescent-dusk-e4577b.netlify.app/" class="demo-link" target="_blank" rel="noopener">
+                                    <i class="fas fa-tasks"></i>
+                                    <span>アプリを試す</span>
+                                </a>
+                            </div>
+                            <div class="project-consultation">
+                                <a href="#contact" class="btn btn-secondary">具体的な方法を相談する</a>
+                            </div>
                              <div class="project-details">
                                  <div class="project-tech">
                                      <h4>使用技術</h4>
