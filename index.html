@@ -225,36 +225,7 @@
                  </div>
             </div>
         </section>
-        <!-- ======================================================= -->
-        <!-- ★★★ 新機能：業務改善インパクト診断 ★★★ -->
-        <!-- ======================================================= -->
-        <section id="simulator" class="simulator">
-            <div class="container">
-                <h2 class="section-title">あなたの「創造的な時間」、取り戻しませんか？</h2>
-                <div class="simulator-intro">
-                    <p>日々の定型業務に費やしている時間を入力するだけで、<br>AI導入によって創出できる「未来の時間」を無料でシミュレーションします。</p>
-                </div>
-                <div class="simulator-body">
-                    <form id="impact-form" class="impact-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="daily-minutes">1. 1日あたりの定型業務の時間（分）</label>
-                                <input type="number" id="daily-minutes" placeholder="例：60 (分)">
-                            </div>
-                            <div class="form-group">
-                                <label for="team-size">2. その業務を行う人数</label>
-                                <input type="number" id="team-size" value="1" placeholder="例：3 (人)">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">未来の時間を計算する</button>
-                    </form>
-                    <div id="simulator-result" class="simulator-result">
-                        <!-- 計算結果はここにJavaScriptで挿入されます -->
-                    </div>
-                </div>
-            </div>
-        </section>
-        
+
         <!-- プロジェクト -->
         <section id="projects" class="projects">
             <div class="container">
@@ -265,44 +236,7 @@
                     </p>
                 </div>
                                  <div class="projects-grid">
-                     <div class="project-card">
-                         <div class="project-image">
-                             <img src="requirements_generator.png" alt="要件構成ジェネレーター" class="project-screenshot" onclick="openModal(this.src, this.alt, 'image')">
-                         </div>
-                         <div class="project-content">
-                             <h3>要件構成ジェネレーター</h3>
-                             <p>やりたいこと・ご要望を入力すると、<br>
-                                AIが業務向けの構成案を自動で整理します。<br>
-                                 ご相談の前に、内容の整理や検討に<br>
-                                 ご活用ください。</p>
-                             <div class="project-demo">
-                                 <a href="https://udify.app/chat/TQQOlorIHsS90yYK" class="demo-link" target="_blank" rel="noopener">
-                                     <i class="fas fa-cogs"></i>
-                                     <span>ジェネレーターを試す</span>
-                                 </a>
-                             </div>
-                             <div class="project-details">
-                                 <div class="project-tech">
-                                     <h4>使用技術</h4>
-                                     <p>Dify(AI開発プラットフォーム)</p>
-                                 </div>
-                                 <div class="project-features">
-                                     <h4>主な機能</h4>
-                                     <ul>
-                                         <li>業務要件の自動整理・構成化</li>
-                                         <li>AIによる最適な構成案の提案</li>
-                                         <li>相談前の事前検討支援</li>
-                                         <li>業務改善の方向性の明確化</li>
-                                     </ul>
-                                 </div>
-                             </div>
-                             <div class="project-tags">
-                                 <span>Dify</span>
-                                 <span>AI</span>
-                                 <span>要件整理</span>
-                             </div>
-                         </div>
-                     </div>
+                     
                      <div class="project-card">
                          <div class="project-image">
                              <img src="LP_project1.png" alt="原状回復LINEチャットボット" class="project-screenshot" onclick="openModal(this.src, this.alt, 'image')">
@@ -509,6 +443,49 @@
                              </div>
                          </div>
                      </div>
+                     <div class="project-card">
+                         <div class="project-image">
+                             <img src="todo-app.png" alt="やる気がみなぎるTodo管理アプリ" class="project-screenshot" onclick="openModal(this.src, this.alt, 'image')">
+                         </div>
+                         <div class="project-content">
+                             <h3>Todo管理アプリ</h3>
+                             <p>タスクを整理して、生産性を向上させる<br>
+                                 Todo管理アプリ。<br>
+                                 優先度設定・カテゴリ分類・期限管理で<br>
+                                 効率的なタスク管理を実現。</p>
+                             <div class="project-demo">
+                                 <a href="https://689384966a62b07c4a0800c5--effervescent-dusk-e4577b.netlify.app/" class="demo-link" target="_blank" rel="noopener">
+                                     <i class="fas fa-tasks"></i>
+                                     <span>アプリを試す</span>
+                                 </a>
+                             </div>
+                             <div class="project-details">
+                                 <div class="project-tech">
+                                     <h4>使用技術</h4>
+                                     <p>React, JavaScript, CSS<br>
+                                    </p>
+                                 </div>
+                                 <div class="project-features">
+                                     <h4>主な機能</h4>
+                                     <ul>
+                                         <li>タスク管理（追加・編集・削除）</li>
+                                         <li>優先度設定（高・中・低）</li>
+                                         <li>カテゴリ分類（6つのカテゴリ）</li>
+                                         <li>期限設定と期限切れ警告</li>
+                                         <li>フィルター・ソート機能</li>
+                                         <li>進捗の可視化</li>
+                                         <li>一括操作</li>
+                                         <li>データの永続化</li>
+                                     </ul>
+                                 </div>
+                             </div>
+                             <div class="project-tags">
+                                 <span>React</span>
+                                 <span>JavaScript</span>
+                                 <span>CSS</span>
+                             </div>
+                         </div>
+                     </div>
                      
 
                 </div>
@@ -542,7 +519,7 @@
                                  </div>
                              </div>
                                                              <div class="skill-item">
-                                  <span>ChatGPT・Claude</span>
+                                  <span>ChatGPT・Claude活用</span>
                                   <div class="skill-bar">
                                       <div class="skill-fill" style="width: 95%"></div>
                                   </div>
@@ -565,11 +542,17 @@
                          <h3>システム開発</h3>
                          <div class="skill-items">
                              <div class="skill-item">
-                                 <span>HTML/CSS/JavaScript</span>
+                                 <span>HTML/CSS</span>
                                  <div class="skill-bar">
                                      <div class="skill-fill" style="width: 85%"></div>
                                  </div>
                              </div>
+                             <div class="skill-item">
+                                <span>JavaScript</span>
+                                <div class="skill-bar">
+                                    <div class="skill-fill" style="width: 85%"></div>
+                                </div>
+                            </div>
                              <div class="skill-item">
                                  <span>LLM活用</span>
                                  <div class="skill-bar">
@@ -708,7 +691,7 @@
                             </div>
                         </div>
                     </div>
-                    <form class="contact-form">
+                    <form class="contact-form" action="mailto:hamada.shinichiro9351@gmail.com" method="POST" enctype="text/plain">
                         <div class="form-group">
                             <input type="text" name="name" placeholder="お名前" required>
                         </div>
