@@ -298,6 +298,7 @@ input:focus-visible, textarea:focus-visible {
 .project-video, .project-video-file{ width:100%; height:100%; }
 .project-video-file{
   object-fit:cover; border-radius:15px 15px 0 0; cursor:pointer; transition: transform .3s ease;
+  background: #f8f9fa; /* 動画が読み込まれる前の背景色 */
 }
 .project-video-file:hover{ transform: scale(1.05); }
 .project-iframe{ width:100%; height:100%; min-height:700px; }
