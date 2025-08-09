@@ -244,6 +244,9 @@ input:focus-visible, textarea:focus-visible {
 
 .project-content{ padding:2rem; }
 .project-content h3{ font-size:1.3rem; margin-bottom:1rem; color:#111; }
+
+/* 経費精算・就業規則チャットフローのタイトルを小さくする */
+.project-expense .project-content h3{ font-size:1.1rem; }
 .project-content p{ color:#666; line-height:1.6; margin-bottom:1.5rem; font-size:.9rem; }
 
 .project-details{ margin-bottom:1.5rem; }
