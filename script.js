@@ -476,7 +476,7 @@ function displayResult(hours) {
       <p class="result-lead-text">あなたのチームでは...</p>
       <div class="result-time" data-target="${rounded}">0 <span>時間/月</span></div>
       <p class="result-sub-text">の「創造的な時間」が生まれる可能性があります。</p>
-      <p class="result-note">※一般的なAI導入による業務削減率を80%と仮定した参考値です。<br>この時間を、新しい企画や顧客満足度の向上に活用しませんか？</p>
+      <p class="result-note">※一般的なAI導入による業務削減率を60%と仮定した参考値です。<br>この時間を、新しい企画や顧客満足度の向上に活用しませんか？</p>
     `;
     resultContainer.innerHTML = html;
     resultContainer.classList.add('visible');
@@ -498,7 +498,7 @@ if (impactForm) {
       showNotification('1以上の有効な数値を入力してください。', 'error');
       return;
     }
-    const IMPROVEMENT_RATE = 0.8;
+    const IMPROVEMENT_RATE = 0.6;
     const WORKING_DAYS_PER_MONTH = 20;
     const totalMonthlyMinutes = dailyMinutes * teamSize * WORKING_DAYS_PER_MONTH;
     const savedMonthlyHours = (totalMonthlyMinutes * IMPROVEMENT_RATE) / 60;
