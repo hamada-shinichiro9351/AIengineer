@@ -112,6 +112,7 @@ input:focus-visible, textarea:focus-visible {
   max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; margin-top: 30px;
 }
 .hero-title { font-size: 2.8rem; font-weight: 700; margin-bottom: 1.5rem; line-height: 1.2; }
+.no-wrap{ white-space: nowrap; }
 .gradient-text{
   background: linear-gradient(45deg, #ff6b6b 0%, #4ecdc4 100%);
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
@@ -538,6 +539,8 @@ input:focus-visible, textarea:focus-visible {
   .impact-form .form-row{ grid-template-columns:1fr; }
   .result-time{ font-size:2.5rem; }
   .result-time span{ font-size:1.2rem; }
+  /* モバイル時に折り返し防止で横スクロールが出ないよう微縮小 */
+  .hero-title .no-wrap{ font-size: 0.95em; }
 }
 
 /* ---------------------------------------------------------
