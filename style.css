@@ -214,6 +214,7 @@ input:focus-visible, textarea:focus-visible {
 .service-icon i{ font-size:1.5rem; color:#fff; }
 
 .service-card h3{ font-size:1.3rem; margin-bottom:1rem; color:#111; font-weight:600; letter-spacing:.01em; }
+.service-card h3.service-title-sm{ font-size:1.2rem; }
 .service-card p{ color:#666; line-height:1.6; margin-bottom:1.5rem; font-size:.95rem; }
 
 .service-details ul{ list-style:none; padding:0; margin:0; }
