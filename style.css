@@ -155,7 +155,7 @@ input:focus-visible, textarea:focus-visible {
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
 }
 
-/* “品質へのこだわり/制作ポリシー” の見出し（白抜き） */
+/* "品質へのこだわり/制作ポリシー" の見出し（白抜き） */
 .satisfaction .section-title{
   color:#fff; -webkit-text-fill-color:#fff; background:none; font-size:3rem; font-weight:800; letter-spacing:.02em; position:relative;
 }
@@ -171,7 +171,7 @@ input:focus-visible, textarea:focus-visible {
 .about-content{ display:grid; grid-template-columns: 2fr 1fr; gap:4rem; align-items:center; }
 .about-text p{ font-size:1rem; margin-bottom:1.5rem; line-height:1.8; color:#666; }
 
-.about-stats{ display:grid; grid-template-columns: repeat(3,1fr); gap:2rem; }
+.about-stats{ display:flex; flex-direction: column; gap:2rem; }
 .stat-item{
   text-align:center; padding:2rem; background:#fff; border-radius:15px;
   box-shadow:0 6px 24px rgba(17,17,17,.06); border:1px solid #eef0f5; transition: transform .3s ease, box-shadow .3s ease;
@@ -577,7 +577,7 @@ input:focus-visible, textarea:focus-visible {
   .satisfaction .section-title::after{ width:50px; height:2px; bottom:-10px; }
 
   .about-content{ grid-template-columns:1fr; gap:2rem; }
-  .about-stats{ grid-template-columns:1fr; }
+  .about-stats{ flex-direction: column; margin-top: 2rem; }
 
   .skills-grid{ grid-template-columns:1fr; }
   .projects-grid{ grid-template-columns:1fr; }
