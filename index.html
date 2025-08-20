@@ -340,25 +340,34 @@
                      <div class="project-card">
                          <div class="project-image">
                              <div class="project-gallery">
-                                 <div class="gallery-container">
-                                     <img src="LP_project4_1.png" alt="レポート自動生成システム(設定画面)" class="gallery-image active"
-                                          width="1200" height="675" loading="lazy" decoding="async"
-                                          onclick="openModal(this.src, this.alt, 'image', event)">
-                                     <img src="LP_project4_2.png" alt="レポート自動生成システム(生成レポート)" class="gallery-image"
-                                          width="1200" height="675" loading="lazy" decoding="async"
-                                          onclick="openModal(this.src, this.alt, 'image', event)">
-                                 </div>
-                                 <div class="gallery-nav">
-                                     <button class="gallery-dot active" onclick="changeGalleryImage(0, this.closest('.project-gallery'))" aria-label="1枚目を表示"></button>
-                                     <button class="gallery-dot" onclick="changeGalleryImage(1, this.closest('.project-gallery'))" aria-label="2枚目を表示"></button>
-                                 </div>
+                                                                 <div class="gallery-container">
+                                    <img src="LP_project4_1.png" alt="レポート自動生成システム(設定画面)" class="gallery-image active"
+                                         width="1200" height="675" loading="lazy" decoding="async"
+                                         onclick="openModal(this.src, this.alt, 'image', event)">
+                                    <img src="LP_project4_3.png" alt="レポート自動生成システム(データ処理画面)" class="gallery-image"
+                                         width="1200" height="675" loading="lazy" decoding="async"
+                                         onclick="openModal(this.src, this.alt, 'image', event)">
+                                    <img src="LP_project4_2.png" alt="レポート自動生成システム(生成レポート)" class="gallery-image"
+                                         width="1200" height="675" loading="lazy" decoding="async"
+                                         onclick="openModal(this.src, this.alt, 'image', event)">
+                                </div>
+                                                                 <div class="gallery-nav">
+                                    <button class="gallery-dot active" onclick="changeGalleryImage(0, this.closest('.project-gallery'))" aria-label="1枚目を表示"></button>
+                                    <button class="gallery-dot" onclick="changeGalleryImage(1, this.closest('.project-gallery'))" aria-label="2枚目を表示"></button>
+                                    <button class="gallery-dot" onclick="changeGalleryImage(2, this.closest('.project-gallery'))" aria-label="3枚目を表示"></button>
+                                </div>
                              </div>
                          </div>
                          <div class="project-content">
                              <h3>定期レポート自動生成システム</h3>
                              <p>Googleスプレッドシートのデータから自動で美しいレポートを生成し、PDF化してメール配信するシステム。売上・タスク・出席データを統合し、週次・月次レポートの作成時間を大幅短縮。</p>
+                             <div class="project-demo">
+                                 <a href="https://github.com/yourusername/auto-report-system" class="demo-link" target="_blank" rel="noopener noreferrer">
+                                     <i class="fas fa-code"></i><span>ソースコードを確認</span>
+                                 </a>
+                             </div>
                              <div class="project-details">
-                                 <div class="project-tech"><h4>使用技術</h4><p>GAS, HTML/CSS, Google Sheets API, Gmail API</p></div>
+                                 <div class="project-tech"><h4>使用技術</h4><p>Google Apps Script, HTML/CSS, Google Sheets API, Gmail API</p></div>
                                  <div class="project-features">
                                      <h4>主な機能</h4>
                                      <ul>
@@ -842,5 +851,3 @@
 </body>
 
 </html>
-
-
